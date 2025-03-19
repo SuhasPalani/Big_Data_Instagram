@@ -1,5 +1,5 @@
 fastapi
-uvicorn
+'uvicorn[standard]'
 kafka-python
 apify-client
 python-dotenv
