@@ -19,7 +19,6 @@ bdt/
 # information for Eclipse / Flash Builder.
 .env
 
-consumer/
 consumer/__pycache__/
 backend/__pycache__/
 kafka/
