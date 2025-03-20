@@ -1,8 +1,9 @@
 fastapi
-'uvicorn[standard]'
+uvicorn[standard]
 kafka-python
 apify-client
 python-dotenv
 boto3
 pydantic
 aiokafka
+pymongo

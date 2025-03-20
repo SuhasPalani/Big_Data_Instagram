@@ -1,49 +1,32 @@
-import pymongo
-import logging
-from typing import List, Dict, Any
-from datetime import datetime
-import json
-from bson import ObjectId
+import boto3
+from boto3.dynamodb.conditions import Key
+from decimal import Decimal
 
 
-class MongoDBHandler:
-    def __init__(self, db_name: str, collection_name: str, mongo_uri: str = "mongodb://localhost:27017"):
-        """
-        Initialize the MongoDB handler.
-        """
-        self.client = pymongo.MongoClient(mongo_uri)
-        self.db = self.client[db_name]
-        self.collection = self.db[collection_name]
-        self._ensure_collection_exists()
+class DynamoDBHandler:
+    def __init__(self, table_name):
+        self.dynamodb = boto3.resource("dynamodb")
+        self.table = self.dynamodb.Table(table_name)
 
-    def _ensure_collection_exists(self):
-        """Ensure the collection exists."""
-        if self.collection is not None:
-            logging.info(f"Using MongoDB collection: {self.collection.name}")
-        else:
-            logging.error("Failed to connect to the collection.")
-
-    async def save_analytics(self, analytics_data: List[Dict[str, Any]]):
-        """Save analytics data to MongoDB."""
+    async def save_analytics(self, analytics_data):
         try:
-            timestamp = datetime.now().isoformat()
             for item in analytics_data:
-                item["timestamp"] = timestamp
-
-            self.collection.insert_many(analytics_data)
-            logging.info(f"Saved {len(analytics_data)} records to MongoDB.")
+                # Convert float values to Decimal
+                item = {
+                    k: Decimal(str(v)) if isinstance(v, float) else v
+                    for k, v in item.items()
+                }
+                self.table.put_item(Item=item)
             return True
         except Exception as e:
-            logging.error(f"Error saving to MongoDB: {str(e)}")
+            print(f"Error saving to DynamoDB: {str(e)}")
             raise
 
-    async def get_analytics_by_username(self, username: str) -> Dict[str, Any]:
-        """Retrieve analytics for a specific username."""
+    async def get_analytics_by_username(self, username):
         try:
-            result = self.collection.find_one({"username": username})
-            if result:
-                result["_id"] = str(result["_id"])  # Convert ObjectId to string
-            return result
+            response = self.table.get_item(Key={"username": username})
+            item = response.get("Item")
+            return item
         except Exception as e:
-            logging.error(f"Error retrieving from MongoDB: {str(e)}")
+            print(f"Error retrieving from DynamoDB: {str(e)}")
             raise
