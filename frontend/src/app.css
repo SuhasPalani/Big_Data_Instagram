@@ -1,0 +1,181 @@
+/* Main Styles for Instagram Analytics Dashboard */
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Card styling */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border: none;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 15px 20px;
+  font-weight: 600;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Form styling */
+.form-control,
+.btn {
+  border-radius: 8px;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  border-color: #86b7fe;
+}
+
+textarea.form-control {
+  min-height: 100px;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Checkboxes */
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Status alerts */
+.alert {
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.alert ul {
+  padding-left: 20px;
+}
+
+.alert li {
+  margin-bottom: 5px;
+}
+
+/* Status colors */
+.alert-primary {
+  background-color: #cfe2ff;
+  border-color: #b6d4fe;
+  color: #084298;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  color: #842029;
+}
+
+/* Table styling */
+.table {
+  font-size: 0.95rem;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+th {
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* Charts and analytics */
+.analytics-display {
+  margin-top: 20px;
+}
+
+.performance-metrics {
+  margin-top: 20px;
+}
+
+.performance-metrics h2,
+.analytics-display h2 {
+  margin-bottom: 20px;
+  color: #212529;
+  font-weight: 600;
+}
+
+.performance-metrics h3 {
+  margin: 15px 0;
+  font-size: 1.25rem;
+  color: #495057;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-header h5 {
+    font-size: 1rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+}
+
+/* Loading spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Header styles */
+h1 {
+  color: #212529;
+  font-weight: 700;
+}
+
+.lead {
+  color: #6c757d;
+}
+
+/* Metric cards */
+.metrics-chart,
+.benchmark-chart {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
