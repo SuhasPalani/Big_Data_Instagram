@@ -1,58 +1,139 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "../app.css";
 
 const InfluencerForm = ({ onSubmit, loading }) => {
-  const [influencerInput, setInfluencerInput] = useState('');
-  
+  const [usernames, setUsernames] = useState("");
+  const [enableMongoDB, setEnableMongoDB] = useState(true);
+  const [enableDynamoDB, setEnableDynamoDB] = useState(true);
+  const [runBenchmark, setRunBenchmark] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Split the input by commas and trim whitespace
-    const usernames = influencerInput
-      .split(',')
-      .map(username => username.trim())
-      .filter(username => username.length > 0);
-    
-    if (usernames.length > 0) {
-      onSubmit(usernames);
+
+    // Split usernames by commas, new lines, or spaces and trim whitespace
+    const usernameList = usernames
+      .split(/[,\n\s]+/)
+      .map((username) => username.trim())
+      .filter((username) => username.length > 0);
+
+    if (usernameList.length === 0) {
+      alert("Please enter at least one valid username");
+      return;
     }
+
+    // Create the request payload with database and benchmark options
+    const requestPayload = {
+      usernames: usernameList,
+      databases: {
+        mongodb: enableMongoDB,
+        dynamodb: enableDynamoDB,
+      },
+      benchmark: runBenchmark,
+    };
+
+    onSubmit(requestPayload);
   };
-  
+
   return (
-    <div className="card mb-4">
-      <div className="card-header">
-        <h5 className="mb-0">Analyze Instagram Influencers</h5>
-      </div>
+    <div className="card">
       <div className="card-body">
+        <h5 className="card-title">Analyze Instagram Profiles</h5>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="influencerInput" className="form-label">
-              Enter Instagram usernames (comma separated)
+            <label htmlFor="usernames" className="form-label">
+              Enter Instagram usernames (separated by commas, spaces, or new
+              lines)
             </label>
-            <input
-              type="text"
+            <textarea
               className="form-control"
-              id="influencerInput"
-              placeholder="e.g. cristiano, leomessi, therock"
-              value={influencerInput}
-              onChange={(e) => setInfluencerInput(e.target.value)}
+              id="usernames"
+              rows="3"
+              value={usernames}
+              onChange={(e) => setUsernames(e.target.value)}
+              placeholder="e.g. instagram, zuck, natgeo"
               disabled={loading}
-            />
-            <div className="form-text">
-              You can enter multiple usernames separated by commas.
+            ></textarea>
+          </div>
+
+          <div className="mb-3">
+            <div className="card">
+              <div className="card-header">Testing Options</div>
+              <div className="card-body">
+                <div className="row mb-2">
+                  <div className="col-12">
+                    <label className="form-label fw-bold">
+                      Databases to Use:
+                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="enableMongoDB"
+                        checked={enableMongoDB}
+                        onChange={(e) => setEnableMongoDB(e.target.checked)}
+                        disabled={loading}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="enableMongoDB"
+                      >
+                        Enable MongoDB
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="enableDynamoDB"
+                        checked={enableDynamoDB}
+                        onChange={(e) => setEnableDynamoDB(e.target.checked)}
+                        disabled={loading}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="enableDynamoDB"
+                      >
+                        Enable DynamoDB
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="runBenchmark"
+                    checked={runBenchmark}
+                    onChange={(e) => setRunBenchmark(e.target.checked)}
+                    disabled={loading}
+                  />
+                  <label className="form-check-label" htmlFor="runBenchmark">
+                    Run Performance Benchmarks (multiple iterations for
+                    comparison)
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            disabled={loading}
-          >
+
+          <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? (
               <>
-                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
                 Processing...
               </>
             ) : (
-              'Analyze'
+              "Analyze Profiles"
             )}
           </button>
         </form>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,8 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
+import "../app.css";
 // Register Chart.js components
 ChartJS.register(
   CategoryScale,
@@ -26,20 +27,24 @@ const AnalyticsDisplay = ({ results }) => {
   }
 
   // Sort results by followers count (descending)
-  const sortedResults = [...results].sort((a, b) => b.followersCount - a.followersCount);
+  const sortedResults = [...results].sort(
+    (a, b) => b.followersCount - a.followersCount
+  );
 
   // Prepare data for charts
-  const usernames = sortedResults.map(result => result.username);
-  const followersData = sortedResults.map(result => result.followersCount);
-  const engagementRateData = sortedResults.map(result => result.engagementRate * 100);
+  const usernames = sortedResults.map((result) => result.username);
+  const followersData = sortedResults.map((result) => result.followersCount);
+  const engagementRateData = sortedResults.map(
+    (result) => result.engagementRate * 100
+  );
 
   const followersChartData = {
     labels: usernames,
     datasets: [
       {
-        label: 'Followers Count',
+        label: "Followers Count",
         data: followersData,
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
@@ -48,9 +53,9 @@ const AnalyticsDisplay = ({ results }) => {
     labels: usernames,
     datasets: [
       {
-        label: 'Engagement Rate (%)',
+        label: "Engagement Rate (%)",
         data: engagementRateData,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
@@ -59,11 +64,11 @@ const AnalyticsDisplay = ({ results }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
       },
       title: {
         display: true,
-        text: 'Instagram Analytics',
+        text: "Instagram Analytics",
       },
     },
   };
@@ -71,7 +76,7 @@ const AnalyticsDisplay = ({ results }) => {
   return (
     <div className="analytics-display">
       <h2 className="mb-4">Results</h2>
-      
+
       <div className="row mb-4">
         <div className="col-md-6">
           <div className="card">
@@ -83,7 +88,7 @@ const AnalyticsDisplay = ({ results }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-6">
           <div className="card">
             <div className="card-header">
@@ -95,7 +100,7 @@ const AnalyticsDisplay = ({ results }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="card">
         <div className="card-header">
           <h5 className="mb-0">Detailed Analytics</h5>
@@ -122,8 +127,14 @@ const AnalyticsDisplay = ({ results }) => {
                     <td>{result.followsCount.toLocaleString()}</td>
                     <td>{result.postsCount}</td>
                     <td>{(result.engagementRate * 100).toFixed(2)}%</td>
-                    <td>{Math.round(result.averageLikesPerPost).toLocaleString()}</td>
-                    <td>{Math.round(result.averageCommentsPerPost).toLocaleString()}</td>
+                    <td>
+                      {Math.round(result.averageLikesPerPost).toLocaleString()}
+                    </td>
+                    <td>
+                      {Math.round(
+                        result.averageCommentsPerPost
+                      ).toLocaleString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>
