@@ -51,7 +51,7 @@ const InfluencerForm = ({ onSubmit, loading }) => {
               rows="3"
               value={usernames}
               onChange={(e) => setUsernames(e.target.value)}
-              placeholder="e.g. instagram, zuck, natgeo"
+              placeholder="e.g. instagram, therock, neymarjr, ..."
               disabled={loading}
             ></textarea>
           </div>
