@@ -1,4 +1,3 @@
-import asyncio
 from apify_client import ApifyClient
 from typing import List, Dict, Any
 from decimal import Decimal
