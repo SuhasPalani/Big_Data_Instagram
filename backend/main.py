@@ -38,7 +38,6 @@ class PerformanceMetric(BaseModel):
     max_time: Optional[float] = None
     std_dev: Optional[float] = None
 
-
 @app.on_event("startup")
 async def startup_event():
     """Initialize Kafka Producer at startup."""
