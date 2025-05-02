@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 
-
 class InfluencerRequest(BaseModel):
     usernames: List[str]
     request_id: Optional[str] = None
