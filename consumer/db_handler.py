@@ -4,7 +4,6 @@ import asyncio
 import boto3
 import motor.motor_asyncio
 import logging
-from typing import Dict, Any
 from decimal import Decimal
 import pymongo
 
